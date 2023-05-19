@@ -23,8 +23,8 @@ class Solution:
             templength = len(queue)
             while templength!=0:
                     temproot = queue.pop(0)
-                    if(temproot and temproot.left is not None): queue.append(temproot.left)
-                    if(temproot and temproot.right is not None): queue.append(temproot.right)
+                    if(temproot.left is not None): queue.append(temproot.left)
+                    if(temproot.right is not None): queue.append(temproot.right)
                     templength-=1
                    
         return output    
