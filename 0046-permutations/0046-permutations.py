@@ -1,6 +1,7 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-         
+        
+        
         output = []
         temp = nums
         
@@ -8,6 +9,7 @@ class Solution:
             if (i>= len(nums)):
                 output.append(temp[:])
                 return
+            
             for j in range (i , len(nums)):
                 temp[i] , temp[j] = temp[j] , temp[i]
                 compute(i+1)
