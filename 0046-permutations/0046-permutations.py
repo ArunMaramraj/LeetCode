@@ -8,7 +8,7 @@ class Solution:
         def compute(i):
             
             if (i>= len(nums)):
-                output.append(temp.copy())
+                output.append(temp[:])
                 return
             
             for j in range (i , len(nums)):
