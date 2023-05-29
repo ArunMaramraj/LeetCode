@@ -13,6 +13,7 @@ class Solution:
     }
         if digits == "":
             return []
+        
         n = len(digits)
        
         output  = []
@@ -20,7 +21,7 @@ class Solution:
         def compute(i,res):
             
             if i>=len(digits) :
-                output.append(res[:])
+                output.append(res)
                 return
             
             for letter in dic[digits[i]]:
