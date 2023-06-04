@@ -8,15 +8,15 @@ class Solution:
             if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == 0:
                 return
 
-            grid[i][j] = 0  # Mark the cell as visited
+            grid[i][j] = 0  
 
-            # Recursively explore the adjacent cells
+          
             dfs(i+1, j)
             dfs(i-1, j)
             dfs(i, j+1)
             dfs(i, j-1)
 
-        # Traverse the boundary and mark all reachable land cells
+      
         for i in range(m):
             dfs(i, 0)
             dfs(i, n-1)
@@ -25,7 +25,6 @@ class Solution:
             dfs(0, j)
             dfs(m-1, j)
 
-        # Count the remaining land cells
         count = 0
         for i in range(m):
             for j in range(n):
