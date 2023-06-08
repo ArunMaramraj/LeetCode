@@ -15,9 +15,6 @@ class Solution:
         
         def dfs(i,j,paci):
             
-            if(vis[i][j]==1):
-                return
-            
             paci.add((i,j))
                 
             vis[i][j]=1
@@ -25,7 +22,8 @@ class Solution:
             for k in range(len(drow)):
                 row = i + drow[k]
                 col = j + dcol[k]
-                if( row>=0 and row<m and col>=0 and col<n and heights[row][col]>=heights[i][j] and (row,col) not in paci):
+                if( row>=0 and row<m and col>=0 and col<n 
+                   and heights[row][col]>=heights[i][j] and (row,col) not in paci and vis[row][col]==0):
                     dfs(row,col,paci)
                     
             vis[i][j]=0    
