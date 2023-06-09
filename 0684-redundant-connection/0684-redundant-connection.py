@@ -23,11 +23,9 @@ class Solution:
                 else:
                     dfs(j, i, visited)
 
-        for u, v in edges:
+        for key in adj.keys():
             visited = set()
-            if u not in adj or v not in adj:
-                continue
-            dfs(u, -1, visited)
+            dfs(key, -1, visited)
 
         for sets in output1:
             output2.append(list(sets))
