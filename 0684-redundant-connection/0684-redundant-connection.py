@@ -1,35 +1,19 @@
-from collections import defaultdict
-
 class Solution:
-    def findRedundantConnection(self, edges):
-        adj = defaultdict(list)
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        # variables
+        n = len(edges)
+        parents = [i for i in range(n + 1)]
 
-        for edge in edges:
-            u, v = edge
-            adj[v].append(u)
-            adj[u].append(v)
-
-        output1 = set()
-        output2 = []
-
-        def dfs(i, parent, visited):
-            visited.add(i)
-
-            for j in adj[i]:
-                if j == parent:
-                    continue
-                if j in visited:
-                    output1.add((i, j))
-                else:
-                    dfs(j, i, visited)
-
-        for key in adj.keys():
-            visited = set()
-            dfs(key, -1, visited)
-
-        for sets in output1:
-            output2.append(list(sets))
-
-        intersection = [x for x in edges if x in output2]
-
-        return intersection[-1] if intersection else []
+        def find_group_root(node):
+            group_root = node
+            while group_root != parents[group_root]:
+                group_root = parents[group_root]
+            return group_root
+        
+        for v1, v2 in edges:
+            group_root1 = find_group_root(v1)
+            group_root2 = find_group_root(v2)
+            if group_root1 == group_root2:
+                return [v1, v2]
+            # union two groups
+            parents[group_root2] = group_root1
