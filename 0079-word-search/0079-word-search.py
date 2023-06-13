@@ -1,48 +1,36 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        s = ""
-        index = 0
         m = len(board)
         n = len(board[0])
-        booli = False
+        word_len = len(word)
         
-        tempset = set() 
+        drow = [-1, 0, 1, 0]
+        dcol = [0, 1, 0, -1]
         
-        def compute(i, j):
-            nonlocal booli
-            nonlocal index
-            nonlocal s
-            nonlocal tempset  
+        def dfs(i, j, index):
+            if index == word_len:
+                return True
             
-            if booli:
-                return
+            if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[index]:
+                return False
             
-            if i >= m or i < 0 or j >= n or j < 0 or word[index] != board[i][j] or (i, j) in tempset:
-                return 
+            temp = board[i][j]
+            board[i][j] = "#"  # Mark the cell as visited
             
-            s += board[i][j]
-            index += 1
+            for k in range(len(drow)):
+                next_row = i + drow[k]
+                next_col = j + dcol[k]
+                
+                if dfs(next_row, next_col, index + 1):
+                    return True
             
-            if s == word:
-                booli = True
-                return
+            board[i][j] = temp  # Restore the cell's original value
             
-            tempset.add((i, j))
-            
-            compute(i, j + 1)
-            compute(i, j - 1)
-            compute(i + 1, j)
-            compute(i - 1, j)
-            
-            index -= 1
-            s = s[:-1]
-            tempset.remove((i, j))
-        
+            return False
+                            
         for i in range(m):
             for j in range(n):
-                if booli:
-                    break
-                else:
-                    compute(i, j)
+                if dfs(i, j, 0):
+                    return True
         
-        return booli
+        return False
