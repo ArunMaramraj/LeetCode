@@ -4,29 +4,37 @@ class Solution:
         n = len(board[0])
         word_len = len(word)
         
-        drow = [-1, 0, 1, 0]
-        dcol = [0, 1, 0, -1]
+        # Create a DP table to store the state of subproblems
+        dp = [[False] * n for _ in range(m)]
         
         def dfs(i, j, index):
+            # Base case: If we have reached the end of the word, return True
             if index == word_len:
                 return True
             
+            # Check for out-of-bounds indices or mismatching characters
             if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[index]:
                 return False
             
-            temp = board[i][j]
-            board[i][j] = "#"  # Mark the cell as visited
+            # If the subproblem has already been solved, return the result from the DP table
+            if dp[i][j]:
+                return False
             
-            for k in range(len(drow)):
-                next_row = i + drow[k]
-                next_col = j + dcol[k]
-                
-                if dfs(next_row, next_col, index + 1):
-                    return True
+            # Mark the subproblem as being solved
+            dp[i][j] = True
             
-            board[i][j] = temp  # Restore the cell's original value
+            # Explore the four neighboring cells
+            found = (
+                dfs(i + 1, j, index + 1)
+                or dfs(i - 1, j, index + 1)
+                or dfs(i, j + 1, index + 1)
+                or dfs(i, j - 1, index + 1)
+            )
             
-            return False
+            # Update the DP table with the result of the subproblem
+            dp[i][j] = False if not found else True
+            
+            return found
                             
         for i in range(m):
             for j in range(n):
