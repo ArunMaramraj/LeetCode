@@ -5,7 +5,7 @@ class Solution:
         
         
         
-        dp = [[-1 for j in range(sum+1)] for i in range(N)]
+        dp = [[-1 for j in range(sum+1)] for i in range(N+1)]
         
         
         def compute(ind,target):
