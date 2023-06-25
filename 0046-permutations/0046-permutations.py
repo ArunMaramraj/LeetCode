@@ -16,5 +16,4 @@ class Solution:
                 temp[i] , temp[j] = temp[j] , temp[i]
         
         compute(0)
-        return output        
-                
+        return output 
