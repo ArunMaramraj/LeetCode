@@ -10,10 +10,10 @@ class Solution:
                 count1 += 1
             elif candidate2 == num:
                 count2 += 1
-            elif count1 == 0:
+            elif count1 == 0 and num!=candidate2:
                 candidate1 = num
                 count1 = 1
-            elif count2 == 0:
+            elif count2 == 0 and num!=candidate1:
                 candidate2 = num
                 count2 = 1
             else:
